@@ -15,6 +15,7 @@
 package stream
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net"
@@ -108,6 +109,14 @@ func (p *udpProxy) recvLoop() {
 					log.Fatalf("Error receiving on UDP port: %v\n", err)
 				}
 			} else {
+				/* 	s := fmt.Sprintf("%s", p.recvBuf[:n])
+				   	fmt.Println("Message received from socket: ")
+				   	fmt.Println(s)
+				*/
+				var sx16 string = fmt.Sprintf("%x", p.recvBuf[:n])
+				fmt.Println("Message bytes received from socket (hexadecimal): ", sx16)
+				//fmt.Println(sx16)
+				//fmt.Println("Message received from socket str: ", i)
 				p.stream.Send(p.recvBuf[:n])
 			}
 		}
